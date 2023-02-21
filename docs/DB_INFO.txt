@@ -1,0 +1,9 @@
+데이터 베이스 정의서
+
+Schema Name : PLAYPOPDB
+
+Table Name :
+            MEMBER_TB - 멤버 테이블
+
+
+
