@@ -30,8 +30,6 @@ const createHashedPassword = async (password) => {
 const verifyPassword = async (password, userSalt, userPassword) => {
     const key = await pbkdf2Promise(password, userSalt, 104906, 64, "sha512");
     const hashedPassword = key.toString("base64");
-    console.log('ha',hashedPassword);
-    console.log('userPassword',userPassword);
     if (hashedPassword === userPassword) return true;
     return false;
 };
@@ -41,7 +39,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/get-member-all', (req, res) => {
-    console.log('in');
     const sql = 'SELECT * FROM MEMBER_TB';
     conn.query(sql, function (err,rows,fields) {
         if(err) console.log('query'+err);
@@ -111,7 +108,7 @@ router.get('/login', async (req, res) => {
         if(validate) {
             res.json(rows);
         }else {
-            res.json('not match');
+            res.json({error:'not match pw',code:201});
         }
     })
 })
