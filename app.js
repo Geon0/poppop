@@ -9,6 +9,8 @@ app.use('/member',memberRouter);
 const poptizenRouter = require('./routes/poptizenController');
 app.use('/poptizen',poptizenRouter);
 
+const shopRouter = require('./routes/shopController');
+app.use('/shop',shopRouter);
 
 app.listen(port, () => console.log("Listening on", port));
 

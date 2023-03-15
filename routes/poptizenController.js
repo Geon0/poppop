@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/get-poptizen-info', (req, res) => {
-    const sql = `SELECT * FROM poptizen`;
+    const sql = `SELECT * FROM POPTIZEN_TB`;
 
     conn.query(sql, function (err,rows,fields) {
         if(err) console.log('query'+err);
@@ -29,7 +29,7 @@ router.get('/get-poptizen-info', (req, res) => {
 
 router.get('/get-poptizen-owned-info', (req, res) => {
     const {id} = req.query;
-    const sql = `SELECT * from poptizen p JOIN poptizen_status ps ON p.id = ps.poptizen_id JOIN poptizen_user_owned puo ON ps.id = puo.poptizen_id WHERE puo.member_id = ${id}`;
+    const sql = `SELECT * from POPTIZEN_TB p JOIN POPTIZEN_STATUS_TB ps ON p.id = ps.poptizen_id JOIN POPTIZEN_USER_OWNED_TB puo ON ps.id = puo.poptizen_id WHERE puo.member_id = ${id}`;
     conn.query(sql, function (err,rows,fields) {
         if(err) console.log('query'+err);
         else res.send(rows);
@@ -58,7 +58,7 @@ router.post('/catch-poptizen', async (req, res) => {
         pp : pp,
         hp_status : hp_status
     };
-    conn.query('insert into poptizen_status set ?',sql1,function (err, results, fields){
+    conn.query('insert into POPTIZEN_STATUS_TB set ?',sql1,function (err, results, fields){
         if (err)
             throw err;
         pStatusId = results.insertId;
@@ -67,7 +67,7 @@ router.post('/catch-poptizen', async (req, res) => {
             poptizen_id : pStatusId
         };
 
-        conn.query('insert into poptizen_user_owned set ?',sql2,function (err, results, fields){
+        conn.query('insert into POPTIZEN_USER_OWNED_TB set ?',sql2,function (err, results, fields){
             if (err)
                 throw err;
             res.json({code:'success'});
